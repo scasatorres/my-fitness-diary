@@ -5,9 +5,14 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy:preview": "pnpm run build && firebase emulators:start",
+    "deploy:prod": "pnpm run build && firebase deploy"
   },
   "devDependencies": {
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^4.1.1",
+    "firebase-functions-test": "^3.0.0",
     "nuxt": "3.0.0"
   }
 }
