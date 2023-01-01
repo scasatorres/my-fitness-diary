@@ -6,13 +6,18 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy:preview": "pnpm run build && firebase emulators:start",
-    "deploy:prod": "pnpm run build && firebase deploy"
+    "lint": "eslint --ext .js,.vue",
+    "lint:fix": "pnpm run lint --fix",
+    "deploy:preview": "pnpm run build && cd .output/server && pnpm i && firebase emulators:start"
   },
   "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-plugin-vue": "^9.8.0",
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
     "firebase-functions-test": "^3.0.0",
-    "nuxt": "3.0.0"
+    "nuxt": "3.0.0",
+    "pug": "^3.0.2",
+    "sass": "^1.57.1"
   }
 }
