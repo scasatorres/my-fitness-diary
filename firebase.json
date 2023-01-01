@@ -5,7 +5,7 @@
   },
   "hosting": {
     "predeploy": [
-      "pnpm run build && cd .output/server && pnpm i"
+      "npm run build && cd .output/server && npm i"
     ],
     "public": ".output/public",
     "cleanUrls": true,
