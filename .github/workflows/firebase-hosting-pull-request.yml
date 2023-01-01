@@ -7,7 +7,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # Sets node version and caches .npm folder
+      - name: Set node version and cache npm deps
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      # Caches node_modules folder, useful if node version is not going to change
+      - name: Cache node modules
+        id: node-modules-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      # Only install deps if package-lock has changed
       - name: Install deps
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Lint

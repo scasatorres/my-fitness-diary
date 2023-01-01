@@ -9,7 +9,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set node version and cache npm deps
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Cache node modules
+        id: node-modules-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install deps
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Build
