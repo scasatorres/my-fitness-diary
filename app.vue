@@ -1,4 +1,11 @@
 <template lang="pug">
-div
-  NuxtWelcome
+#app
+  NuxtLayout
+    NuxtPage
 </template>
+<style lang="scss">
+#app {
+  display: flex;
+  flex-direction: column;
+}
+</style>

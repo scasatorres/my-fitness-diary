@@ -1,0 +1,47 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1440px
+);
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  @if map-has-key($grid-breakpoints, $name) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+  } @else {
+    @error "Invalid breakpoint: #{$media-size}.";
+  }
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media($media-size) {
+  @if map-has-key($grid-breakpoints, $media-size) {
+    $breakpoint-width: map-get($grid-breakpoints, $media-size);
+    $breakpoint-index: index(map-keys($grid-breakpoints), $media-size);
+
+    @if ($breakpoint-index == 1) { // First - SCSS indexes starts at 1
+      $next-breakpoint-width: nth(map-values($grid-breakpoints), 2);
+      @media (max-width: #{$next-breakpoint-width - 1}) { @content; }
+    } @else {
+      @media (min-width: $breakpoint-width) { @content; }
+    }
+  } @else {
+    @error "Invalid breakpoint: #{$media-size}.";
+  }
+}
