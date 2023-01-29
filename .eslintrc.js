@@ -8,5 +8,10 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
+    'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
+    'semi': ['error', 'never'],
+    'vue/multi-word-component-names': ['error', {
+      'ignores': ['default', 'index']
+    }]
   }
 }
